@@ -23,13 +23,20 @@ go build
 
 To try this example it's neccesary to prepare Google Pub/Sub to allow Notifier publish and receive messsages. To do so, create Service Account (under Google Gloud Console) with proper rights (read and write), download it in Json format to account.json as well as to make a topic and subscription in Pub/Sub. Gitlab repository should also have trigger token and branch.   
 
+### Export environment variable
+
+```sh
+export NOTIFIER_PUBSUB_CREDENTIALS=account.json
+export NOTIFIER_PUBSUB_PROJECT_ID=some-pubsub-project-id
+```
+
+
 ### Run in Sub mode
 
 ```sh
-./notifier sub --pubsub-credentials account.json --pubsub-project-id some-pubsub-project-id \
-               --pubsub-subscription some-pubsub-subscription \
-               --gitlab-base-url some-gitlab-base-url \
-               --gitlab-project-id some-gitlab-project-id --gitlab-project-ref some-gitlab-project-ref --gitlab-variable some-gitlab-variable \
+./notifier sub --pubsub-subscription some-pubsub-subscription \
+               --gitlab-base-url some-gitlab-base-url --gitlab-variable some-gitlab-variable \
+               --gitlab-project-id some-gitlab-project-id --gitlab-project-ref some-gitlab-project-ref \
                --gitlab-trigger-token some-gitlab-trigger-toke \
                --log-format stdout --log-level debug --log-template '{{.msg}}' 
 ```
@@ -37,9 +44,40 @@ To try this example it's neccesary to prepare Google Pub/Sub to allow Notifier p
 ### Run in Pub mode
 
 ```sh
-./notifier pub --pubsub-credentials account.json --pubsub-project-id some-pubsub-project-id \
-               --pubsub-topic some-pubsub-topic --pubsub-payload some-pubsub-payload \
+./notifier pub --pubsub-topic some-pubsub-topic --pubsub-payload some-pubsub-payload \
                --log-format stdout --log-level debug --log-template '{{.msg}}' 
+```
+
+## Usage
+
+```
+Notifier command
+
+Usage:
+  notifier [flags]
+  notifier [command]
+
+Available Commands:
+  help        Help about any command
+  pub         Pub command
+  sub         Sub command
+  version     Print the version number
+
+Flags:
+      --gitlab-base-url string        Gitlab base URL
+      --gitlab-project-id string      Gitlab project ID
+      --gitlab-project-ref string     Gitlab project ref
+      --gitlab-token string           Gitlab token
+      --gitlab-trigger-token string   Gitlab trigger token
+      --gitlab-variable string        Gitlab variable
+  -h, --help                          help for notifier
+      --log-format string             Log format: json, text, stdout (default "text")
+      --log-level string              Log level: info, warn, error, debug, panic (default "info")
+      --log-template string           Log template (default "{{.func}} [{{.line}}]: {{.msg}}")
+      --prometheus-listen string      Prometheus listen (default "127.0.0.1:8080")
+      --prometheus-url string         Prometheus endpoint url (default "/metrics")
+      --pubsub-credentials string     Pub/Sub credentials
+      --pubsub-project-id string      Pub/Sub project ID
 ```
 
 ## Environment variables
