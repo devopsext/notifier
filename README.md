@@ -1,6 +1,6 @@
 # Notifier
 
-Utility that allows to publish events into Google Pub/Sub from one side and receive events from the other side by triggering Gitlab Ci/CD pipeline with a variable. A content of an event will be passed to a variable.
+Utility that allows to publish events into Google Pub/Sub from one side and receive events from the other side by triggering Gitlab CI/CD pipeline with a variable. A content of an event will be passed to a variable.
 
 [![GoDoc](https://godoc.org/github.com/devopsext/notifier?status.svg)](https://godoc.org/github.com/devopsext/notifier)
 [![build status](https://img.shields.io/travis/devopsext/notifier/master.svg?style=flat-square)](https://travis-ci.org/devopsext/notifier)
